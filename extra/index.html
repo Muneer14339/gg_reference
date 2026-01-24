@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 GajjuGames - Play Free Online Games</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial Black', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+            opacity: 0.3;
+        }
+
+        .shape1 {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape2 {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #FF1493, #FF69B4);
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+
+        .shape3 {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #00CED1, #1E90FF);
+            top: 30%;
+            left: 70%;
+            animation-delay: 4s;
+        }
+
+        .shape4 {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #32CD32, #00FF00);
+            top: 80%;
+            left: 20%;
+            animation-delay: 1s;
+        }
+
+        .shape5 {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(45deg, #FF4500, #FF6347);
+            top: 45%;
+            left: 5%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-30px) translateX(30px) rotate(90deg);
+            }
+            50% {
+                transform: translateY(-60px) translateX(-30px) rotate(180deg);
+            }
+            75% {
+                transform: translateY(-30px) translateX(-60px) rotate(270deg);
+            }
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            padding: 20px 0;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .logo-container {
+            display: inline-block;
+            animation: logoFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.4));
+        }
+
+        .logo-img {
+            max-width: 400px;
+            width: 90%;
+            height: auto;
+            transform: perspective(1000px) rotateX(5deg);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: perspective(1000px) rotateX(0deg) scale(1.05);
+        }
+
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            margin-bottom: 15px;
+            text-shadow: 
+                3px 3px 0px rgba(0, 0, 0, 0.3),
+                6px 6px 20px rgba(255, 255, 255, 0.2);
+            animation: titlePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        /* Games Grid */
+        .games-section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* Mobile: 1 column */
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+        }
+
+        /* Tablet: 2 columns */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .games-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Desktop: 3-4 columns */
+        @media (min-width: 1025px) {
+            .games-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        .game-card {
+            background: linear-gradient(145deg, #ffffff, #e6e6e6);
+            border-radius: 25px;
+            overflow: hidden;
+            cursor: pointer;
+            transform: perspective(1000px) rotateY(0deg);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 0 5px rgba(255, 255, 255, 0.1);
+            animation: cardFloat 3s ease-in-out infinite;
+        }
+
+        .game-card:nth-child(1) { animation-delay: 0s; }
+        .game-card:nth-child(2) { animation-delay: 0.5s; }
+        .game-card:nth-child(3) { animation-delay: 1s; }
+        .game-card:nth-child(4) { animation-delay: 1.5s; }
+
+        @keyframes cardFloat {
+            0%, 100% {
+                transform: translateY(0) perspective(1000px) rotateY(0deg);
+            }
+            50% {
+                transform: translateY(-15px) perspective(1000px) rotateY(0deg);
+            }
+        }
+
+        .game-card:hover {
+            transform: perspective(1000px) rotateY(5deg) scale(1.05);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.4),
+                0 0 0 5px rgba(255, 255, 255, 0.2),
+                0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .game-thumbnail {
+            height: 220px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .game-thumbnail::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+            z-index: 1;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        .game-info {
+            padding: 25px;
+            background: white;
+            color: #333;
+        }
+
+        .game-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            color: #2d3748;
+            text-shadow: 2px 2px 0px rgba(255, 215, 0, 0.3);
+        }
+
+        .game-description {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 15px;
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+        }
+
+        .game-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .play-button {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #2d3748;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 900;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 
+                0 5px 15px rgba(255, 165, 0, 0.4),
+                inset 0 -3px 10px rgba(255, 140, 0, 0.3);
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+
+        .play-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 8px 20px rgba(255, 165, 0, 0.6),
+                inset 0 -3px 10px rgba(255, 140, 0, 0.3);
+        }
+
+        .play-button:active {
+            transform: translateY(0);
+        }
+
+        /* Coming Soon Card */
+        .coming-soon {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .coming-soon .game-thumbnail {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+        }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.85);
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            z-index: 2;
+            color: white;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* About Section */
+        .about-section {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(230, 230, 230, 0.95));
+            border-radius: 30px;
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            transform: perspective(1000px) rotateX(2deg);
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        @media (max-width: 768px) {
+            .about-section {
+                padding: 30px 20px;
+            }
+        }
+
+        .about-section h2 {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            color: #2d3748;
+            margin-bottom: 25px;
+            text-shadow: 3px 3px 0px rgba(102, 126, 234, 0.2);
+        }
+
+        .about-section p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: #4a5568;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 
+                0 10px 30px rgba(255, 165, 0, 0.4),
+                inset 0 -5px 15px rgba(255, 140, 0, 0.3);
+            animation: highlightPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes highlightPulse {
+            0%, 100% {
+                box-shadow: 
+                    0 10px 30px rgba(255, 165, 0, 0.4),
+                    inset 0 -5px 15px rgba(255, 140, 0, 0.3);
+            }
+            50% {
+                box-shadow: 
+                    0 15px 40px rgba(255, 165, 0, 0.6),
+                    inset 0 -5px 15px rgba(255, 140, 0, 0.5);
+            }
+        }
+
+        .highlight-box p {
+            color: #2d3748;
+            font-weight: bold;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            margin: 0;
+            text-align: center;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Sparkle Effect */
+        .sparkle {
+            position: fixed;
+            pointer-events: none;
+            animation: sparkleFloat 2s ease-out forwards;
+            z-index: 999;
+        }
+
+        @keyframes sparkleFloat {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(0);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shape shape1"></div>
+        <div class="floating-shape shape2"></div>
+        <div class="floating-shape shape3"></div>
+        <div class="floating-shape shape4"></div>
+        <div class="floating-shape shape5"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header with Logo -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo.png" alt="GajjuGames Logo" class="logo-img">
+            </div>
+        </div>
+
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>🌟 Welcome to GajjuGames! 🌟</h1>
+            <p>Play amazing free games right in your browser - No downloads needed!</p>
+        </div>
+
+        <!-- Games Section -->
+        <div class="games-section">
+            <h2 class="section-title">🎯 Featured Games</h2>
+            <div class="games-grid">
+                <!-- Game 1: Don't Tap The Red -->
+                <div class="game-card" onclick="playGame('games/dont-tap-red.html')">
+                    <div class="game-thumbnail">
+                        <img src="images/dont-tap-red.png" alt="Don't Tap The Red" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22><rect fill=%22%23667eea%22 width=%22400%22 height=%22300%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2280%22>🎯</text></svg>'">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">Don't Tap The Red</h3>
+                        <p class="game-description">
+                            Test your reflexes! Tap the green tiles and avoid the red ones. How high can you score?
+                        </p>
+                        <div class="game-tags">
+                            <span class="tag">Reflex</span>
+                            <span class="tag">Fast-Paced</span>
+                            <span class="tag">Leaderboard</span>
+                        </div>
+                        <button class="play-button">▶ Play Now</button>
+                    </div>
+                </div>
+
+                <!-- Coming Soon Game 2 -->
+                <div class="game-card coming-soon">
+                    <div class="game-thumbnail">
+                        <div class="coming-soon-badge">🔒 Coming Soon</div>
+                        <img src="images/puzzle-master.png" alt="Puzzle Master" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22><rect fill=%22%2395a5a6%22 width=%22400%22 height=%22300%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2280%22>🧩</text></svg>'">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">Puzzle Master</h3>
+                        <p class="game-description">
+                            Challenge your brain with exciting puzzle combinations!
+                        </p>
+                        <div class="game-tags">
+                            <span class="tag">Puzzle</span>
+                            <span class="tag">Strategy</span>
+                        </div>
+                        <button class="play-button">Coming Soon</button>
+                    </div>
+                </div>
+
+                <!-- Coming Soon Game 3 -->
+                <div class="game-card coming-soon">
+                    <div class="game-thumbnail">
+                        <div class="coming-soon-badge">🔒 Coming Soon</div>
+                        <img src="images/endless-runner.png" alt="Endless Runner" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22><rect fill=%22%2395a5a6%22 width=%22400%22 height=%22300%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2280%22>🏃</text></svg>'">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">Endless Runner</h3>
+                        <p class="game-description">
+                            Run, jump, and dodge obstacles in this endless adventure!
+                        </p>
+                        <div class="game-tags">
+                            <span class="tag">Action</span>
+                            <span class="tag">Endless</span>
+                        </div>
+                        <button class="play-button">Coming Soon</button>
+                    </div>
+                </div>
+
+                <!-- Coming Soon Game 4 -->
+                <div class="game-card coming-soon">
+                    <div class="game-thumbnail">
+                        <div class="coming-soon-badge">🔒 Coming Soon</div>
+                        <img src="images/memory-match.png" alt="Memory Match" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22><rect fill=%22%2395a5a6%22 width=%22400%22 height=%22300%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2280%22>🎲</text></svg>'">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">Memory Match</h3>
+                        <p class="game-description">
+                            Find matching pairs and improve your memory skills!
+                        </p>
+                        <div class="game-tags">
+                            <span class="tag">Memory</span>
+                            <span class="tag">Casual</span>
+                        </div>
+                        <button class="play-button">Coming Soon</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="about-section">
+            <h2>🌈 About GajjuGames</h2>
+            <p>
+                Welcome to GajjuGames - your ultimate destination for fun and entertaining browser games! 
+                We create simple, addictive games that you can play anytime, anywhere, without any downloads or installations.
+            </p>
+            <p>
+                Our mission is to bring joy and entertainment to players around the world through quality games 
+                that are easy to learn but challenging to master. Whether you want to kill some time or compete 
+                for high scores, we've got something for everyone!
+            </p>
+            <p>
+                All our games are completely free to play. No hidden charges, no annoying ads - just pure gaming fun!
+            </p>
+            
+            <div class="highlight-box">
+                <p>
+                    ⚠️ Important Notice: GajjuGames is an independent gaming platform created and operated by an individual developer. 
+                    This website is NOT affiliated with, endorsed by, or connected to any company or corporation. 
+                    All games are original creations developed independently. Enjoy responsibly! 🎮
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2025 GajjuGames - Made with ❤️ for gamers worldwide</p>
+            <p>Play. Enjoy. Repeat. 🎮</p>
+        </div>
+    </div>
+
+    <script>
+        // Play game function
+        function playGame(url) {
+            window.location.href = url;
+        }
+
+        // Sparkle effect on mouse move (desktop only)
+        if (window.innerWidth > 768) {
+            let sparkleTimer;
+            document.addEventListener('mousemove', (e) => {
+                clearTimeout(sparkleTimer);
+                sparkleTimer = setTimeout(() => {
+                    createSparkle(e.clientX, e.clientY);
+                }, 150);
+            });
+        }
+
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.innerHTML = '✨';
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            sparkle.style.fontSize = Math.random() * 20 + 10 + 'px';
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 2000);
+        }
+
+        // Game card click animation
+        document.querySelectorAll('.game-card:not(.coming-soon)').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 10);
+            });
+        });
+
+        // Random sparkles on load (desktop only)
+        if (window.innerWidth > 768) {
+            function randomSparkle() {
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                createSparkle(x, y);
+            }
+            setInterval(randomSparkle, 3000);
+        }
+    </script>
+</body>
+</html>

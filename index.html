@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">GajjuGames - Play Free Online Games</title>
+    <meta name="description" id="pageDesc" content="Play amazing free browser games at GajjuGames. No downloads needed!">
+    <meta name="keywords" id="pageKeywords" content="free online games, browser games, no download, web games, mobile games">
+    <link rel="canonical" href="https://gajjugames.pages.dev/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gajjugames.pages.dev/">
+    <meta property="og:title" id="ogTitle" content="GajjuGames - Play Free Online Games">
+    <meta property="og:description" id="ogDesc" content="Play amazing free browser games at GajjuGames. No downloads needed!">
+    <meta property="og:image" id="ogImage" content="https://gajjugames.pages.dev/assets/logo.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://gajjugames.pages.dev/">
+    <meta property="twitter:title" id="twTitle" content="GajjuGames - Play Free Online Games">
+    <meta property="twitter:description" id="twDesc" content="Play amazing free browser games at GajjuGames. No downloads needed!">
+    <meta property="twitter:image" id="twImage" content="https://gajjugames.pages.dev/assets/logo.png">
+    
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
+    <link rel="stylesheet" href="assets/common.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+            opacity: 0.3;
+        }
+        .shape1 { width: 50px; height: 50px; background: linear-gradient(45deg, #FFD700, #FFA500); top: 10%; left: 10%; animation-delay: 0s; }
+        .shape2 { width: 70px; height: 70px; background: linear-gradient(45deg, #FF1493, #FF69B4); top: 60%; left: 80%; animation-delay: 2s; }
+        .shape3 { width: 60px; height: 60px; background: linear-gradient(45deg, #00CED1, #1E90FF); top: 30%; left: 70%; animation-delay: 4s; }
+        .shape4 { width: 45px; height: 45px; background: linear-gradient(45deg, #32CD32, #00FF00); top: 80%; left: 20%; animation-delay: 1s; }
+        .shape5 { width: 55px; height: 55px; background: linear-gradient(45deg, #FF4500, #FF6347); top: 45%; left: 5%; animation-delay: 3s; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(-25px) translateX(25px) rotate(90deg); }
+            50% { transform: translateY(-50px) translateX(-25px) rotate(180deg); }
+            75% { transform: translateY(-25px) translateX(-50px) rotate(270deg); }
+        }
+        .container { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 8px 12px; }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0;
+            margin-bottom: 8px;
+        }
+        .logo-img {
+            max-width: 180px;
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+            margin-right: 15px;
+        }
+        @media (min-width: 769px) { 
+            .logo-img { 
+                max-width: 220px;
+                margin-right: 20px;
+            } 
+        }
+        .hero { flex: 1; text-align: left; }
+        .hero h1 {
+            font-size: clamp(1.1rem, 3vw, 1.8rem);
+            margin-bottom: 2px;
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+        .hero p { font-size: clamp(0.75rem, 2vw, 0.95rem); opacity: 0.9; }
+        @media (max-width: 600px) {
+            .header { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .hero { text-align: left; }
+        }
+        .section-title {
+            font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+        }
+        .games-grid { display: grid; gap: 12px; margin-bottom: 15px; }
+        @media (max-width: 480px) { .games-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
+        @media (min-width: 481px) and (max-width: 768px) { .games-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 769px) and (max-width: 1024px) { .games-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; } }
+        @media (min-width: 1025px) { .games-grid { grid-template-columns: repeat(4, 1fr); gap: 15px; } }
+        .game-card {
+            background: linear-gradient(145deg, #ffffff, #e6e6e6);
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(255, 255, 255, 0.1);
+        }
+        .game-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 0 3px rgba(255, 255, 255, 0.2), 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        .game-thumbnail {
+            height: 130px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        @media (min-width: 769px) { .game-thumbnail { height: 160px; } }
+        .game-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
+        .game-thumbnail::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+            z-index: 1;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        .game-info { padding: 10px; background: white; color: #333; }
+        @media (min-width: 769px) { .game-info { padding: 15px; } }
+        .game-title {
+            font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+            font-weight: 900;
+            margin-bottom: 5px;
+            color: #2d3748;
+            text-shadow: 2px 2px 0px rgba(255, 215, 0, 0.3);
+            line-height: 1.2;
+        }
+        .game-description {
+            font-size: clamp(0.7rem, 1.8vw, 0.85rem);
+            color: #666;
+            margin-bottom: 6px;
+            font-family: Arial, sans-serif;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        @media (min-width: 769px) { .game-description { margin-bottom: 10px; } }
+        .game-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 6px; }
+        @media (min-width: 769px) { .game-tags { margin-bottom: 10px; } }
+        .tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: clamp(0.65rem, 1.6vw, 0.75rem);
+            font-weight: bold;
+        }
+        .play-button {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #2d3748;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 18px;
+            font-size: clamp(0.8rem, 2vw, 0.95rem);
+            font-weight: 900;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(255, 165, 0, 0.4), inset 0 -3px 8px rgba(255, 140, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        @media (min-width: 769px) { .play-button { padding: 10px 15px; } }
+        .play-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 165, 0, 0.6), inset 0 -3px 8px rgba(255, 140, 0, 0.3);
+        }
+        .coming-soon { opacity: 0.7; pointer-events: none; }
+        .coming-soon .game-thumbnail { background: linear-gradient(135deg, #95a5a6, #7f8c8d); }
+        .coming-soon-badge {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.85);
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: clamp(0.85rem, 2.3vw, 1.1rem);
+            font-weight: bold;
+            z-index: 2;
+            color: white;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        .about-section {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(230, 230, 230, 0.95));
+            border-radius: 20px;
+            padding: 25px 20px;
+            margin: 20px 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+        @media (min-width: 769px) { .about-section { padding: 35px 30px; } }
+        .about-section h2 {
+            font-size: clamp(1.5rem, 4vw, 2.3rem);
+            color: #2d3748;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 0px rgba(102, 126, 234, 0.2);
+        }
+        .about-section p {
+            font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            font-family: Arial, sans-serif;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 15px;
+            padding: 18px;
+            margin-top: 20px;
+            box-shadow: 0 8px 25px rgba(255, 165, 0, 0.4), inset 0 -4px 12px rgba(255, 140, 0, 0.3);
+        }
+        .highlight-box p {
+            color: #2d3748;
+            font-weight: bold;
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+            margin: 0;
+            text-align: center;
+            line-height: 1.5;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="floating-shape shape1"></div>
+        <div class="floating-shape shape2"></div>
+        <div class="floating-shape shape3"></div>
+        <div class="floating-shape shape4"></div>
+        <div class="floating-shape shape5"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <img src="assets/logo.png" alt="GajjuGames" class="logo-img">
+            <div class="hero">
+                <h1>🌟 Welcome to GajjuGames!</h1>
+                <p>Play amazing free games - No downloads needed!</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">🎯 Featured Games</h2>
+        <div class="games-grid" id="gamesGrid"></div>
+
+        <div class="about-section">
+            <h2>🌈 About GajjuGames</h2>
+            <p>Welcome to GajjuGames - your ultimate destination for fun and entertaining browser games! We create simple, addictive games that you can play anytime, anywhere, without any downloads or installations.</p>
+            <p>Our mission is to bring joy and entertainment to players around the world through quality games that are easy to learn but challenging to master. Whether you want to kill some time or compete for high scores, we've got something for everyone!</p>
+            <div class="highlight-box">
+                <p>⚠️ Important Notice: GajjuGames is an independent gaming platform created and operated by an individual developer. This website is NOT affiliated with, endorsed by, or connected to any company or corporation. Enjoy responsibly! 🎮</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 GajjuGames - Made with ❤️ for gamers worldwide</p>
+            <p>Play. Enjoy. Repeat. 🎮</p>
+        </div>
+    </div>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "GajjuGames",
+        "url": "https://gajjugames.pages.dev",
+        "description": "Play amazing free browser games at GajjuGames. No downloads needed!",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://gajjugames.pages.dev/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+
+    <script>
+        async function loadSEO() {
+            try {
+                const response = await fetch('assets/files/seo.csv');
+                const text = await response.text();
+                const lines = text.trim().split('\n');
+                const headers = lines[0].split(',');
+                const homeData = lines[1].split(',');
+                const seo = headers.reduce((obj, header, i) => {
+                    obj[header.trim()] = homeData[i]?.trim() || '';
+                    return obj;
+                }, {});
+
+                const baseUrl = window.location.origin;
+                document.getElementById('pageTitle').textContent = seo.title;
+                document.getElementById('pageDesc').content = seo.description;
+                document.getElementById('pageKeywords').content = seo.keywords;
+                document.getElementById('ogTitle').content = seo.title;
+                document.getElementById('ogDesc').content = seo.description;
+                document.getElementById('ogImage').content = `${baseUrl}/${seo.og_image}`;
+                document.getElementById('twTitle').content = seo.title;
+                document.getElementById('twDesc').content = seo.description;
+                document.getElementById('twImage').content = `${baseUrl}/${seo.og_image}`;
+            } catch (error) {
+                console.error('SEO load error:', error);
+            }
+        }
+
+        async function loadCSV(path) {
+            const response = await fetch(path);
+            const text = await response.text();
+            const lines = text.trim().split('\n');
+            const headers = lines[0].split(',');
+            return lines.slice(1).map(line => {
+                const values = line.split(',');
+                return headers.reduce((obj, header, i) => {
+                    obj[header.trim()] = values[i]?.trim() || '';
+                    return obj;
+                }, {});
+            });
+        }
+
+        function createGameCard(game, isComingSoon = false) {
+            const card = document.createElement('div');
+            card.className = `game-card ${isComingSoon ? 'coming-soon' : ''}`;
+            if (!isComingSoon) {
+                card.onclick = () => window.location.href = `games/${game.id}.html`;
+            }
+
+            const tags = [game.tag1, game.tag2, game.tag3].filter(t => t).map(t => 
+                `<span class="tag">${t}</span>`
+            ).join('');
+
+            const thumbnail = isComingSoon 
+                ? '<div class="game-thumbnail"><div class="coming-soon-badge">🔒 Coming Soon</div></div>'
+                : `<div class="game-thumbnail"><img src="assets/images/${game.id}.png" alt="${game.title}"></div>`;
+
+            card.innerHTML = `
+                ${thumbnail}
+                <div class="game-info">
+                    <h3 class="game-title">${game.title}</h3>
+                    <p class="game-description">${game.description}</p>
+                    <div class="game-tags">${tags}</div>
+                    <button class="play-button">${isComingSoon ? 'Coming Soon' : '▶ Play Now'}</button>
+                </div>
+            `;
+            return card;
+        }
+
+        async function loadGames() {
+            const grid = document.getElementById('gamesGrid');
+            try {
+                const [games, comingSoon] = await Promise.all([
+                    loadCSV('assets/files/games.csv'),
+                    loadCSV('assets/files/comingSoon.csv')
+                ]);
+
+                games.forEach(game => grid.appendChild(createGameCard(game, false)));
+                comingSoon.forEach(game => grid.appendChild(createGameCard(game, true)));
+            } catch (error) {
+                console.error('Error loading games:', error);
+            }
+        }
+
+        loadSEO();
+        loadGames();
+    </script>
+</body>
+</html>

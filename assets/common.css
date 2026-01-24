@@ -1,0 +1,22 @@
+/* Common Text Styles for GajjuGames */
+
+body {
+    font-family: 'Comic Sans MS', 'Arial Black', sans-serif;
+}
+
+h1, h2, h3, .game-title, .section-title, .leaderboard-name {
+    font-family: 'Comic Sans MS', 'Arial Black', sans-serif;
+    font-weight: 900;
+}
+
+p, .game-description, button, .stat-card-label {
+    font-family: 'Comic Sans MS', Arial, sans-serif;
+}
+
+/* Button text styles */
+button, .play-button, .start-button {
+    font-family: 'Comic Sans MS', 'Arial Black', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
