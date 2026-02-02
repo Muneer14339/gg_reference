@@ -17,7 +17,7 @@ export default {
       const gameUrls = gamesLines.map(line => {
         const id = line.split(",")[0];
         return `  <url>
-    <loc>https://www.gajjugames.com/games/${id}.html</loc>
+    <loc>https://www.gajjugames.com/games/${id}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
